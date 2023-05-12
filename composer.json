@@ -12,8 +12,7 @@
   "require": {
     "php": "^8.1",
     "filp/whoops": "^2.15",
-    "minicli/mini-plugin": "dev-main",
-    "minicli/minicli": "^4.0"
+    "minicli/mini-plugin": "dev-main"
   },
   "require-dev": {
     "laravel/pint": "^1.10",

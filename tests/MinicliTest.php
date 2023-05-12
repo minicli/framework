@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Minicli\App;
 use Minicli\Framework\Configuration\Config;
 use Minicli\Framework\Minicli;
 
@@ -21,7 +20,6 @@ it('can create a new minicli instance passing through the config', function (): 
                     'theme' => '',
                 ],
             ),
-            app: new App(),
         ),
     )->toBeInstanceOf(Minicli::class);
 });

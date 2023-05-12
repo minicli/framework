@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Minicli\Framework;
 
-use Minicli\App;
 use Minicli\Framework\Configuration\Config;
 
 final class Minicli
@@ -13,7 +12,6 @@ final class Minicli
 
     public function __construct(
         protected readonly Config $config,
-        protected readonly App $app,
     ) {
     }
 
@@ -29,8 +27,7 @@ final class Minicli
         );
 
         return new Minicli(
-            config: $config,
-            app: new App($config->toArray()),
+            config: $config
         );
     }
 }
