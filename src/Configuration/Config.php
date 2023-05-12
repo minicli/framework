@@ -14,12 +14,12 @@ final class Config
     }
 
     /**
-     * @return array{app_path:string,theme:string,debug:bool}
+     * @return array{path:string,theme:string,debug:bool}
      */
     public function toArray(): array
     {
         return [
-            'app_path' => $this->path,
+            'path' => $this->path,
             'theme' => $this->theme,
             'debug' => $this->debug,
         ];

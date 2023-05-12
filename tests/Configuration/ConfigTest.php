@@ -36,6 +36,6 @@ it('can turn the config object into an array that minicli understands', function
     expect(
         $config->toArray(),
     )->toBeArray()->toHaveKeys(
-        keys: ['app_path','theme','debug'],
+        keys: ['path','theme','debug'],
     );
 });
