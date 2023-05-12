@@ -25,7 +25,7 @@ it('can create a config using the static make method', function (): void {
     )->toBeInstanceOf(Config::class);
 });
 
-it('can turn the config object into an array that minicli understands', function () {
+it('can turn the config object into an array that minicli understands', function (): void {
     $config = Config::make(
         data: [
             'path' => 'test',

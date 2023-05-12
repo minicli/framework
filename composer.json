@@ -11,6 +11,7 @@
   ],
   "require": {
     "php": "^8.1",
+    "filp/whoops": "^2.15",
     "minicli/mini-plugin": "dev-main",
     "minicli/minicli": "^4.0"
   },
