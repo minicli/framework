@@ -14,6 +14,7 @@
     "minicli/mini-plugin": "dev-main"
   },
   "require-dev": {
+    "laravel/pint": "^1.10",
     "pestphp/pest": "^2.6",
     "phpstan/phpstan": "^1.10"
   },
