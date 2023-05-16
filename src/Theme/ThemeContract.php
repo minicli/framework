@@ -4,55 +4,80 @@ declare(strict_types=1);
 
 namespace Minicli\Framework\Theme;
 
-use StringBackedEnum;
-
 interface ThemeContract
 {
     /**
      * Default style
-     * @return array<int,StringBackedEnum>
      */
-    public function default(): array;
+    public function default(): ThemeStyle;
 
     /**
      * Alternative style for Default
-     * @return array<int,StringBackedEnum>
      */
-    public function alt(): array;
+    public function alt(): ThemeStyle;
 
     /**
      * Error style
-     * @return array<int,StringBackedEnum>
      */
-    public function error(): array;
+    public function error(): ThemeStyle;
 
     /**
      * Alternative style for Error
-     * @return array<int,StringBackedEnum>
      */
-    public function errorAlt(): array;
+    public function errorAlt(): ThemeStyle;
+
+    /**
+     * Warning style
+     */
+    public function warning(): ThemeStyle;
+
+    /**
+     * Alternative style for Warning
+     */
+    public function warningAlt(): ThemeStyle;
 
     /**
      * Success style
-     * @return array<int,StringBackedEnum>
      */
-    public function success(): array;
+    public function success(): ThemeStyle;
 
     /**
      * Alternative style for Success
-     * @return array<int,StringBackedEnum>
      */
-    public function successAlt(): array;
+    public function successAlt(): ThemeStyle;
 
     /**
      * Info style
-     * @return array<int,StringBackedEnum>
      */
-    public function info(): array;
+    public function info(): ThemeStyle;
 
     /**
      * Alternative style for Info
-     * @return array<int,StringBackedEnum>
      */
-    public function infoAlt(): array;
+    public function infoAlt(): ThemeStyle;
+
+    /**
+     * Bold style
+     */
+    public function bold(): ThemeStyle;
+
+    /**
+     * Dim style
+     */
+    public function dim(): ThemeStyle;
+
+    /**
+     * Italic style
+     */
+    public function italic(): ThemeStyle;
+
+    /**
+     * Underline style
+     */
+    public function underline(): ThemeStyle;
+
+    /**
+     * Invert style
+     */
+    public function invert(): ThemeStyle;
 }
