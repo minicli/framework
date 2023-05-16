@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Minicli\Framework\Theme\Enums;
 
-enum Foreground: string
+use Minicli\Framework\Contracts\Theme\MiniEnum;
+
+enum Foreground: string implements MiniEnum
 {
     case BLACK = '0;30';
     case WHITE = '1;37';

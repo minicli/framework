@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Minicli\Framework\Theme\Enums;
 
-enum FontWeight: string
+use Minicli\Framework\Contracts\Theme\MiniEnum;
+
+enum FontWeight: string implements MiniEnum
 {
     case DEFAULT = '0';
     case BOLD = '1';

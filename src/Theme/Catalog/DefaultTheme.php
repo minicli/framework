@@ -6,8 +6,7 @@ namespace Minicli\Framework\Theme\Catalog;
 
 use Minicli\Framework\Theme\Enums\Background;
 use Minicli\Framework\Theme\Enums\Foreground;
-use Minicli\Framework\Theme\ThemeContract;
-use StringBackedEnum;
+use Minicli\Framework\Contracts\Theme\ThemeContract;
 
 final class DefaultTheme implements ThemeContract
 {
