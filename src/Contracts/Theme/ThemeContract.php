@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Minicli\Framework\Contracts\Theme;
 
-namespace Minicli\Framework\Contracts\Theme;
-namespace Minicli\Framework\Theme;
+use Minicli\Framework\Theme\ThemeStyle;
 
 interface ThemeContract
 {
