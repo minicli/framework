@@ -60,7 +60,7 @@ final class Input
         }
     }
 
-    public function command(): ?string
+    public function command(): string
     {
         return $this->command;
     }
