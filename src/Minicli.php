@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Minicli\Framework;
 
 use Minicli\Framework\Configuration\Config;
+use Minicli\Framework\Theme\ThemeContract;
 
 final class Minicli
 {
@@ -15,9 +16,15 @@ final class Minicli
     ) {
     }
 
+    /**
+     * @param string $path
+     * @param class-string<ThemeContract>|null $theme
+     * @param bool $debug
+     * @return Minicli
+     */
     public static function boot(
         string $path,
-        string $theme,
+        ?string $theme,
         bool $debug = false,
     ): Minicli {
         $config = new Config(
