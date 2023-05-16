@@ -4,53 +4,38 @@ declare(strict_types=1);
 
 namespace Minicli\Framework\Contracts\Theme;
 
+namespace Minicli\Framework\Contracts\Theme;
+namespace Minicli\Framework\Theme;
+
 interface ThemeContract
 {
-    /**
-     * Default style
-     * @return array<int,MiniEnum>
-     */
-    public function default(): array;
+    public function default(): ThemeStyle;
 
-    /**
-     * Alternative style for Default
-     * @return array<int,MiniEnum>
-     */
-    public function alt(): array;
+    public function alt(): ThemeStyle;
 
-    /**
-     * Error style
-     * @return array<int,MiniEnum>
-     */
-    public function error(): array;
+    public function error(): ThemeStyle;
 
-    /**
-     * Alternative style for Error
-     * @return array<int,MiniEnum>
-     */
-    public function errorAlt(): array;
+    public function errorAlt(): ThemeStyle;
 
-    /**
-     * Success style
-     * @return array<int,MiniEnum>
-     */
-    public function success(): array;
+    public function warning(): ThemeStyle;
 
-    /**
-     * Alternative style for Success
-     * @return array<int,MiniEnum>
-     */
-    public function successAlt(): array;
+    public function warningAlt(): ThemeStyle;
 
-    /**
-     * Info style
-     * @return array<int,MiniEnum>
-     */
-    public function info(): array;
+    public function success(): ThemeStyle;
 
-    /**
-     * Alternative style for Info
-     * @return array<int,MiniEnum>
-     */
-    public function infoAlt(): array;
+    public function successAlt(): ThemeStyle;
+
+    public function info(): ThemeStyle;
+
+    public function infoAlt(): ThemeStyle;
+
+    public function bold(): ThemeStyle;
+
+    public function dim(): ThemeStyle;
+
+    public function italic(): ThemeStyle;
+
+    public function underline(): ThemeStyle;
+
+    public function invert(): ThemeStyle;
 }
