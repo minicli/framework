@@ -9,6 +9,7 @@ use Minicli\Framework\Commands\DefaultCommand;
 use Minicli\Framework\Configuration\Config;
 use Minicli\Framework\Contracts\Theme\ThemeContract;
 use Minicli\Framework\DI\Container;
+use Minicli\Framework\Exceptions\MissingParametersException;
 use Minicli\Framework\Input\Input;
 
 final class Minicli extends Container
@@ -50,12 +51,14 @@ final class Minicli extends Container
      *
      * @param array<int,string> $argv
      * @return void
+     * @throws MissingParametersException
      */
     public function run(array $argv = []): void
     {
         $input = new Input($argv);
         $command = $this->getCommand($input->command());
 
+        $command->boot($input);
         $command->handle($input);
         $command->teardown();
     }
