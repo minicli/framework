@@ -12,7 +12,8 @@ final class Engine
     public function __construct(
         private readonly ThemeContract $theme,
         private readonly PrinterContract $printer,
-    ) {}
+    ) {
+    }
 
     public function print(string $message): string
     {

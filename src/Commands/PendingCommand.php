@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Minicli\Framework\Commands;
 
-use Minicli\Framework\Exceptions\MinicliNamingException;
-use Minicli\Framework\Minicli;
-
 final class PendingCommand
 {
     public function __construct(
         protected string $command,
         protected array $arguments = [],
         protected array $flags = [],
-    ) {}
+    ) {
+    }
 
     public static function build(array $arguments = []): PendingCommand
     {
@@ -40,7 +38,7 @@ final class PendingCommand
             ),
         );
 
-//        $reflection = new Re
+        // $reflection = new Re
 
         $command = $args[1];
         unset($args[1]);

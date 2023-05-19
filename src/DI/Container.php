@@ -14,14 +14,14 @@ use ReflectionParameter;
 /**
  * @implements ArrayAccess<string,mixed>
  */
-class Container implements ArrayAccess
+final class Container implements ArrayAccess
 {
-    protected static null|Container $instance = null;
+    private static null|Container $instance = null;
 
     /**
      * @var array<string,array{concrete:Closure|string|null,shared:bool}>
      */
-    protected array $bindings = [];
+    private array $bindings = [];
 
     /**
      * @var array<string,mixed>
@@ -31,7 +31,7 @@ class Container implements ArrayAccess
     /**
      * @return void
      */
-    protected function __construct()
+    private function __construct()
     {
     }
 
@@ -136,19 +136,19 @@ class Container implements ArrayAccess
             return $concrete($this);
         }
 
-        if (!class_exists($concrete)) {
-            throw new BindingResolutionException("Target class [$concrete] does not exist.", 0);
+        if ( ! class_exists($concrete)) {
+            throw new BindingResolutionException("Target class [{$concrete}] does not exist.", 0);
         }
 
         $reflector = new ReflectionClass($concrete);
 
-        if (!$reflector->isInstantiable()) {
-            throw new BindingResolutionException("Target [$concrete] is not instantiable.");
+        if ( ! $reflector->isInstantiable()) {
+            throw new BindingResolutionException("Target [{$concrete}] is not instantiable.");
         }
 
         $constructor = $reflector->getConstructor();
 
-        if (is_null($constructor)) {
+        if (null === $constructor) {
             return new $concrete();
         }
 
@@ -164,7 +164,7 @@ class Container implements ArrayAccess
      * @return array<int,mixed>
      * @throws BindingResolutionException|ReflectionException
      */
-    protected function resolveDependencies(array $dependencies): array
+    private function resolveDependencies(array $dependencies): array
     {
         $results = [];
 
@@ -172,9 +172,9 @@ class Container implements ArrayAccess
             // This is a much simpler version of what Laravel does
             $type = $dependency->getType(); // ReflectionType|null
 
-            if (!$type instanceof ReflectionNamedType || $type->isBuiltin()) {
-                $declaringClass = is_null($dependency->getDeclaringClass()) ? '' : $dependency->getDeclaringClass()->getName();
-                throw new BindingResolutionException("Unresolvable dependency resolving [$dependency] in class {$declaringClass}");
+            if ( ! $type instanceof ReflectionNamedType || $type->isBuiltin()) {
+                $declaringClass = null === $dependency->getDeclaringClass() ? '' : $dependency->getDeclaringClass()->getName();
+                throw new BindingResolutionException("Unresolvable dependency resolving [{$dependency}] in class {$declaringClass}");
             }
 
             $results[] = $this->make($type->getName());
