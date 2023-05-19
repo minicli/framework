@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Minicli\Framework\DI;
 
 use ArrayAccess;
+use Closure;
 use Minicli\Framework\Exceptions\BindingResolutionException;
 use ReflectionClass;
 use ReflectionException;
@@ -31,7 +32,7 @@ final class Container implements ArrayAccess
     /**
      * @return void
      */
-    private function __construct()
+    public function __construct()
     {
     }
 

@@ -19,6 +19,8 @@ final class Minicli extends Container
         protected readonly Config $config,
     ) {
         parent::__construct();
+
+        $this->loadCommands();
     }
 
     /**
