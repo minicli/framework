@@ -30,20 +30,22 @@
     }
   },
   "scripts": {
-    "pint": [
-      "./vendor/bin/pint"
-    ],
-    "stan": [
-      "./vendor/bin/phpstan analyse --memory-limit=3G"
-    ],
+    "lint": ["pint"],
+    "test:lint": ["pint --test"],
+    "test:stan": ["phpstan analyse --memory-limit=3G"],
+    "test:unit": ["pest"],
     "test": [
-      "./vendor/bin/pest"
+      "@test:lint",
+      "@test:stan",
+      "@test:unit"
     ]
   },
   "scripts-descriptions": {
-    "pint": "Run Laravel Pint code styling.",
-    "stan": "Run PHPStan against code base.",
-    "test": "Run test suite."
+    "lint": "Run Laravel Pint code styling.",
+    "test:lint": "Run Laravel Pint code styling check.",
+    "test:stan": "Run PHPStan against code base.",
+    "test:unit": "Run test suite.",
+    "test": "Run all tests."
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

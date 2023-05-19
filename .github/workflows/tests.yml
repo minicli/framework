@@ -17,7 +17,6 @@ jobs:
         dependencies:
           - "highest"
         php-version:
-          - "8.1"
           - "8.2"
         operating-system:
           - "ubuntu-latest"
@@ -48,8 +47,11 @@ jobs:
       - name: "Validate Composer dependencies"
         run: "composer validate"
 
+      - name: "Check Style"
+        run: "composer test:lint"
+
       - name: "Check Static Analysis"
-        run: "composer stan"
+        run: "composer test:stan"
 
       - name: "Run Test suite"
-        run: "composer test"
+        run: "composer test:unit"
