@@ -6,5 +6,4 @@ namespace Minicli\Framework\Contracts\Theme;
 
 interface MiniEnum
 {
-    //
 }
