@@ -47,9 +47,7 @@ final class Input
 
         $this->parseInput();
 
-        if ($this->args[1]) {
-            $this->command = $this->args[1];
-        }
+        $this->command = $this->args[1] ?? '';
 
         if ($this->args[2]) {
             $this->command .= " {$this->args[2]}";

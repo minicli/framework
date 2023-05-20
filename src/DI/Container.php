@@ -15,19 +15,19 @@ use ReflectionParameter;
 /**
  * @implements ArrayAccess<string,mixed>
  */
-final class Container implements ArrayAccess
+abstract class Container implements ArrayAccess
 {
-    private static null|Container $instance = null;
+    protected static null|Container $instance = null;
 
     /**
      * @var array<string,array{concrete:Closure|string|null,shared:bool}>
      */
-    private array $bindings = [];
+    protected array $bindings = [];
 
     /**
      * @var array<string,mixed>
      */
-    private array $instances = [];
+    protected array $instances = [];
 
     /**
      * @return void
