@@ -4,23 +4,25 @@ declare(strict_types=1);
 
 namespace Minicli\Framework;
 
-use Minicli\Framework\Attributes\Description;
-use Minicli\Framework\Attributes\Signature;
 use Minicli\Framework\Commands\AbstractCommand;
-use Minicli\Framework\Commands\CommandCollector;
+use Minicli\Framework\Commands\DefaultCommand;
 use Minicli\Framework\Configuration\Config;
 use Minicli\Framework\Contracts\Theme\ThemeContract;
 use Minicli\Framework\DI\Container;
-use ReflectionClass;
-use ReflectionException;
+use Minicli\Framework\Exceptions\MissingParametersException;
+use Minicli\Framework\Input\Input;
 
 final class Minicli extends Container
 {
     public const VERSION = '0.0.1';
 
-    protected readonly Config $config;
+    public function __construct(
+        protected readonly Config $config,
+    ) {
+        parent::__construct();
 
-    public readonly CommandCollector $commands;
+        $this->loadCommands();
+    }
 
     /**
      * @param string $path
@@ -33,60 +35,48 @@ final class Minicli extends Container
         ?string $theme,
         bool $debug = false,
     ): Minicli {
-        $cli = Minicli::getInstance();
-        $cli->config = new Config(
+        $config = new Config(
             path: $path,
             theme: $theme,
             debug: $debug,
         );
-        $cli->commands = new CommandCollector();
 
-        return $cli;
+        return new Minicli(
+            config: $config
+        );
     }
 
     /**
-     * @param class-string<AbstractCommand> $command
-     * @return Minicli
-     * @throws ReflectionException
+     * Runs the application with the given input.
+     *
+     * @param array<int,string> $argv
+     * @return void
+     * @throws MissingParametersException
      */
-    public function command(string $command): Minicli
+    public function run(array $argv = []): void
     {
-        $reflection = new ReflectionClass(
-            objectOrClass: $command,
-        );
+        $input = new Input($argv);
+        $command = $this->getCommand($input->command());
 
-        $parent = $reflection->getParentClass();
-
-        if (! $parent || $parent->getName() !== AbstractCommand::class) {
-            return $this;
-        }
-
-        $this->commands->add(
-            signature: $reflection->getAttributes(Signature::class)[0]->newInstance()->signature,
-            description: $reflection->getAttributes(Description::class)[0]->newInstance()->description,
-            instance: $command,
-        );
-
-        return $this;
+        $command->boot($input);
+        $command->handle($input);
+        $command->teardown();
     }
 
     /**
-     * @param array<int,string> $arguments
+     * Loads commands into the DI container.
      */
-    public function run(array $arguments)
+    private function loadCommands(): void
     {
-        $command = (count($arguments) <= 1)
-            ? 'default'
-            : $arguments[1];
+        // TODO: Implement
+    }
 
-        $instance =  $this->commands->match(
-            signature: $command,
-        );
-
-        $instance = $this->make(
-            abstract: $instance['instance'],
-        );
-
-        var_dump($instance->handle());die();
+    /**
+     * Gets command from DI container by name or returns the default one.
+     */
+    private function getCommand(string $command): AbstractCommand
+    {
+        // TODO: Implement
+        return new DefaultCommand();
     }
 }
