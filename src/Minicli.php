@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Minicli\Framework;
 
+use Minicli\Framework\Attributes\Description;
+use Minicli\Framework\Attributes\Signature;
 use Minicli\Framework\Commands\AbstractCommand;
+use Minicli\Framework\Commands\CommandCollector;
 use Minicli\Framework\Commands\DefaultCommand;
 use Minicli\Framework\Configuration\Config;
 use Minicli\Framework\Contracts\Theme\ThemeContract;
 use Minicli\Framework\DI\Container;
 use Minicli\Framework\Exceptions\MissingParametersException;
 use Minicli\Framework\Input\Input;
+use ReflectionClass;
 
 final class Minicli extends Container
 {
@@ -18,6 +22,7 @@ final class Minicli extends Container
 
     public function __construct(
         protected readonly Config $config,
+        protected CommandCollector $commands = new CommandCollector(),
     ) {
         parent::__construct();
 
@@ -58,6 +63,8 @@ final class Minicli extends Container
         $input = new Input($argv);
         $command = $this->getCommand($input->command());
 
+        var_dump($command);die();
+
         $command->boot($input);
         $command->handle($input);
         $command->teardown();
@@ -71,12 +78,42 @@ final class Minicli extends Container
         // TODO: Implement
     }
 
+    public function command(string $command): Minicli
+    {
+        $reflection = new ReflectionClass(
+            objectOrClass: $command,
+        );
+
+        $parent = $reflection->getParentClass();
+
+        if (! $parent || $parent->getName() !== AbstractCommand::class) {
+            return $this;
+        }
+
+        $this->commands->add(
+            signature: $reflection->getAttributes(Signature::class)[0]->newInstance()->signature,
+            description: $reflection->getAttributes(Description::class)[0]->newInstance()->description,
+            instance: $command,
+        );
+
+        return $this;
+    }
+
     /**
      * Gets command from DI container by name or returns the default one.
      */
     private function getCommand(string $command): AbstractCommand
     {
-        // TODO: Implement
-        return new DefaultCommand();
+        $instance = $this->commands->match(
+            signature: $command,
+        );
+
+        if (! $instance) {
+            return new DefaultCommand();
+        }
+
+        return $this->make(
+            abstract: $command['instance'],
+        );
     }
 }
