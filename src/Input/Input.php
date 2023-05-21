@@ -49,12 +49,14 @@ final class Input
 
         $this->command = $this->args[1] ?? '';
 
-        if ($this->args[2]) {
-            $this->command .= " {$this->args[2]}";
-        }
+        if (count($this->args) < 1) {
+            if ($this->args[2]) {
+                $this->command .= " {$this->args[2]}";
+            }
 
-        if ('' === $this->command) {
-            $this->command = self::DEFAULT_COMMAND;
+            if ('' === $this->command) {
+                $this->command = self::DEFAULT_COMMAND;
+            }
         }
     }
 

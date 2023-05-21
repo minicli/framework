@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Minicli\Framework\Commands;
 
+use Minicli\Framework\Minicli;
+
 final class CommandCollector
 {
     public function __construct(
