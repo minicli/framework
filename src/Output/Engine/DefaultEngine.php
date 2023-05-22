@@ -23,16 +23,16 @@ final class DefaultEngine implements EngineContract
         print $this->printer->print($message);
     }
 
-    public function newLine(): void
+    public function lineBreak(): void
     {
         print $this->printer->print("\n");
     }
 
     public function table(Table $table): void
     {
-        $this->newLine();
+        $this->lineBreak();
         $this->print($table->render());
-        $this->newLine();
+        $this->lineBreak();
     }
 
     public function ask(string $question): string

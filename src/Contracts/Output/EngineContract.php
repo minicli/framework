@@ -10,7 +10,7 @@ interface EngineContract
 {
     public function print(string $message): void;
 
-    public function newLine(): void;
+    public function lineBreak(): void;
 
     public function table(Table $table): void;
 
