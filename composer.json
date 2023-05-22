@@ -11,6 +11,7 @@
   ],
   "require": {
     "php": "^8.1",
+    "ext-readline": "*",
     "filp/whoops": "^2.15",
     "minicli/mini-plugin": "dev-main"
   },

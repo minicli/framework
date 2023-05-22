@@ -14,7 +14,7 @@ interface EngineContract
 
     public function table(Table $table): void;
 
-    public function ask(string $question): string;
+    public function ask(string $question, string $method = 'default'): string;
 
     public function default(string $message): void;
 

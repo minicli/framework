@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Minicli\Framework\Output\Engine;
 
+use http\Exception\InvalidArgumentException;
 use Minicli\Framework\Contracts\Output\EngineContract;
 use Minicli\Framework\Contracts\Output\PrinterContract;
 use Minicli\Framework\Contracts\Theme\ThemeContract;
+use Minicli\Framework\Input\AskInput;
 use Minicli\Framework\Output\Table;
 use Minicli\Framework\Theme\ThemeStyle;
 
@@ -35,10 +37,15 @@ final class DefaultEngine implements EngineContract
         $this->lineBreak();
     }
 
-    public function ask(string $question): string
+    public function ask(string $question, string $method = 'default'): string
     {
-        // TODO: Implement ask() method.
-        return '';
+        if ( ! method_exists($this, $method)) {
+            throw new InvalidArgumentException("No output for [{$method}]");
+        }
+
+        $this->{$method}($question);
+
+        return AskInput::make()->read();
     }
 
     public function default(string $message): void
