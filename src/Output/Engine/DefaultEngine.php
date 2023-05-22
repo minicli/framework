@@ -30,7 +30,9 @@ final class DefaultEngine implements EngineContract
 
     public function table(Table $table): void
     {
-        // TODO: Implement table() method.
+        $this->newLine();
+        $this->print($table->render());
+        $this->newLine();
     }
 
     public function ask(string $question): string
