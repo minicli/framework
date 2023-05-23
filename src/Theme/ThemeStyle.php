@@ -7,12 +7,13 @@ namespace Minicli\Framework\Theme;
 use Minicli\Framework\Theme\Enums\Background;
 use Minicli\Framework\Theme\Enums\FontWeight;
 use Minicli\Framework\Theme\Enums\Foreground;
+use Minicli\Framework\Theme\Enums\TermwindColor;
 
 final class ThemeStyle
 {
     public function __construct(
-        public readonly FontWeight|Foreground $foreground,
-        public readonly ?Background $background = null
+        public readonly FontWeight|Foreground|TermwindColor $foreground,
+        public readonly Background|TermwindColor|null $background = null
     ) {
     }
 
