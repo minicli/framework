@@ -6,7 +6,7 @@ namespace Minicli\Framework\Theme\Enums;
 
 use Minicli\Framework\Contracts\Theme\MiniEnum;
 
-enum TermwindColor: string implements MiniEnum
+enum TermwindStyle: string implements MiniEnum
 {
     case BLACK = 'black';
 
@@ -269,4 +269,9 @@ enum TermwindColor: string implements MiniEnum
 
     case MAGENTA = 'magenta';
     case BRIGHTMAGENTA = 'bright-magenta';
+
+    case FONT_NORMAL = 'font-normal';
+    case FONT_BOLD = 'font-bold';
+    case FONT_ITALLIC = 'italic';
+    case FONT_UNDERLINE = 'underline';
 }
