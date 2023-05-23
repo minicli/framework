@@ -11,7 +11,7 @@ final class MissingParametersException extends Exception
     public function __construct(array $missing)
     {
         parent::__construct(sprintf(
-            'Missing required parameters: %s',
+            'Missing required parameter(s): %s',
             implode(', ', $missing)
         ));
     }

@@ -7,10 +7,17 @@ namespace Minicli\Framework;
 use Minicli\Framework\Commands\AbstractCommand;
 use Minicli\Framework\Commands\DefaultCommand;
 use Minicli\Framework\Configuration\Config;
+use Minicli\Framework\Contracts\Output\EngineContract;
+use Minicli\Framework\Contracts\Output\PrinterContract;
 use Minicli\Framework\Contracts\Theme\ThemeContract;
 use Minicli\Framework\DI\Container;
 use Minicli\Framework\Exceptions\MissingParametersException;
 use Minicli\Framework\Input\Input;
+use Minicli\Framework\Output\Engine\DefaultEngine;
+use Minicli\Framework\Output\Printer\DefaultPrinter;
+use Minicli\Framework\Output\Services\Plates;
+use Minicli\Framework\Output\Services\Termwind;
+use Minicli\Framework\Theme\Catalog\DefaultTheme;
 
 final class Minicli extends Container
 {
@@ -21,23 +28,33 @@ final class Minicli extends Container
     ) {
         parent::__construct();
 
+        $this->loadEngine();
         $this->loadCommands();
     }
 
     /**
      * @param string $path
+     * @param string $views
      * @param class-string<ThemeContract>|null $theme
+     * @param class-string<PrinterContract>|null $printer
+     * @param class-string<EngineContract>|null $engine
      * @param bool $debug
      * @return Minicli
      */
     public static function boot(
         string $path,
+        string $views,
         ?string $theme,
+        ?string $printer,
+        ?string $engine,
         bool $debug = false,
     ): Minicli {
         $config = new Config(
             path: $path,
+            views: $views,
             theme: $theme,
+            printer: $printer,
+            engine: $engine,
             debug: $debug,
         );
 
@@ -61,6 +78,36 @@ final class Minicli extends Container
         $command->boot($input);
         $command->handle($input);
         $command->teardown();
+    }
+
+    private function loadEngine(): void
+    {
+        $this->singleton(
+            abstract: Termwind::class,
+            concrete: Termwind::class,
+        );
+
+        $this->singleton(
+            abstract: Plates::class,
+            concrete: fn () => new Plates(
+                path: $this->config->views(),
+            ),
+        );
+
+        $this->singleton(
+            abstract: ThemeContract::class,
+            concrete: $this->config->theme() ?? DefaultTheme::class,
+        );
+
+        $this->singleton(
+            abstract: PrinterContract::class,
+            concrete: $this->config->printer() ?? DefaultPrinter::class,
+        );
+
+        $this->singleton(
+            abstract: EngineContract::class,
+            concrete: $this->config->engine() ?? DefaultEngine::class,
+        );
     }
 
     /**
