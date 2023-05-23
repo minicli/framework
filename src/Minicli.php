@@ -15,6 +15,8 @@ use Minicli\Framework\Exceptions\MissingParametersException;
 use Minicli\Framework\Input\Input;
 use Minicli\Framework\Output\Engine\DefaultEngine;
 use Minicli\Framework\Output\Printer\DefaultPrinter;
+use Minicli\Framework\Output\Services\Plates;
+use Minicli\Framework\Output\Services\Termwind;
 use Minicli\Framework\Theme\Catalog\DefaultTheme;
 
 final class Minicli extends Container
@@ -32,6 +34,7 @@ final class Minicli extends Container
 
     /**
      * @param string $path
+     * @param string $views
      * @param class-string<ThemeContract>|null $theme
      * @param class-string<PrinterContract>|null $printer
      * @param class-string<EngineContract>|null $engine
@@ -40,6 +43,7 @@ final class Minicli extends Container
      */
     public static function boot(
         string $path,
+        string $views,
         ?string $theme,
         ?string $printer,
         ?string $engine,
@@ -47,6 +51,7 @@ final class Minicli extends Container
     ): Minicli {
         $config = new Config(
             path: $path,
+            views: $views,
             theme: $theme,
             printer: $printer,
             engine: $engine,
@@ -90,6 +95,16 @@ final class Minicli extends Container
         $this->singleton(
             abstract: EngineContract::class,
             concrete: $this->config->engine() ?? DefaultEngine::class,
+        );
+
+        $this->singleton(
+            abstract: Termwind::class,
+            concrete: Termwind::class,
+        );
+
+        $this->singleton(
+            abstract: Plates::class,
+            concrete: Plates::class,
         );
     }
 

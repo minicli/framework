@@ -12,6 +12,7 @@ final class Config
 {
     /**
      * @param string $path
+     * @param string $views
      * @param class-string<ThemeContract>|null $theme
      * @param class-string<PrinterContract>|null $printer
      * @param class-string<EngineContract>|null $engine
@@ -19,6 +20,7 @@ final class Config
      */
     public function __construct(
         private readonly string $path,
+        private readonly string $views,
         private readonly ?string $theme = null,
         private readonly ?string $printer = null,
         private readonly ?string $engine = null,
@@ -27,12 +29,13 @@ final class Config
     }
 
     /**
-     * @return array{path:string,theme:class-string<ThemeContract>|null,debug:bool}
+     * @return array{path:string,views:string,theme:class-string<ThemeContract>|null,debug:bool}
      */
     public function toArray(): array
     {
         return [
             'path' => $this->path,
+            'views' => $this->views,
             'theme' => $this->theme,
             'printer' => $this->printer,
             'engine' => $this->engine,
@@ -41,13 +44,14 @@ final class Config
     }
 
     /**
-     * @param array{path:string,theme:class-string<ThemeContract>|null,printer:class-string<PrinterContract>|null,engine:class-string<EngineContract>|null,debug:bool|null} $data
+     * @param array{path:string,views:string,theme:class-string<ThemeContract>|null,printer:class-string<PrinterContract>|null,engine:class-string<EngineContract>|null,debug:bool|null} $data
      * @return Config
      */
     public static function make(array $data): Config
     {
         return new Config(
             path: $data['path'],
+            views: $data['views'],
             theme: $data['theme'],
             printer: $data['printer'],
             engine: $data['engine'],
@@ -58,6 +62,11 @@ final class Config
     public function path(): string
     {
         return $this->path;
+    }
+
+    public function views(): string
+    {
+        return $this->views;
     }
 
     /**
