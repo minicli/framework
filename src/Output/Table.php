@@ -19,6 +19,22 @@ final class Table
     }
 
     /**
+     * @return array<int,string>
+     */
+    public function headers(): array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * @return array<int,array<int,string>>
+     */
+    public function rows(): array
+    {
+        return $this->rows;
+    }
+
+    /**
      * @param array<int,string> $row
      */
     public function addRow(array $row): Table

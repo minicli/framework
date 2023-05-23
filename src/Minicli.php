@@ -83,6 +83,18 @@ final class Minicli extends Container
     private function loadEngine(): void
     {
         $this->singleton(
+            abstract: Termwind::class,
+            concrete: Termwind::class,
+        );
+
+        $this->singleton(
+            abstract: Plates::class,
+            concrete: fn () => new Plates(
+                path: $this->config->views(),
+            ),
+        );
+
+        $this->singleton(
             abstract: ThemeContract::class,
             concrete: $this->config->theme() ?? DefaultTheme::class,
         );
@@ -95,16 +107,6 @@ final class Minicli extends Container
         $this->singleton(
             abstract: EngineContract::class,
             concrete: $this->config->engine() ?? DefaultEngine::class,
-        );
-
-        $this->singleton(
-            abstract: Termwind::class,
-            concrete: Termwind::class,
-        );
-
-        $this->singleton(
-            abstract: Plates::class,
-            concrete: Plates::class,
         );
     }
 

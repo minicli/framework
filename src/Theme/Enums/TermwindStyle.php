@@ -274,4 +274,17 @@ enum TermwindStyle: string implements MiniEnum
     case FONT_BOLD = 'font-bold';
     case FONT_ITALLIC = 'italic';
     case FONT_UNDERLINE = 'underline';
+
+    /**
+     * @return array<int,string>
+     */
+    public static function fontStyles(): array
+    {
+        return [
+            self::FONT_NORMAL->value,
+            self::FONT_BOLD->value,
+            self::FONT_ITALLIC->value,
+            self::FONT_UNDERLINE->value,
+        ];
+    }
 }
