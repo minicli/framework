@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Minicli\Framework\Theme\Catalog;
 
-use Minicli\Framework\Contracts\Theme\ThemeContract;
+use Minicli\Framework\Contracts\Theme\TermwindThemeContract;
 use Minicli\Framework\Theme\Enums\TermwindStyle;
 use Minicli\Framework\Theme\ThemeStyle;
 
-final class TermwindTheme implements ThemeContract
+final class TermwindTheme implements TermwindThemeContract
 {
     public function default(): ThemeStyle
     {
